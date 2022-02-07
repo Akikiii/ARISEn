@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+    </head>
+    <body onload="makeTable()">
+        <div class="container">
+          <div class="btn-container">
+          <h1>ID system</h1>
+      
+          <label for="employ">Name:</label>
+          <input id="employ"type="text">
+    
+          <label for="age">Age</label>
+          <input id="age" type="number">
+    
+          <label for="gender">gender</label>
+          <input id="gender" type="text"><br>
+    
+          <button onclick="addPerson()" class="btn" >Add Person to list</button> <br>
+    
+          <label for="noemp">No of People:</label>
+          <input id ="noemp" type="number" readonly>
+
+          <label for ="remove">Remove Person:</label>
+          <input id ="remove" type="number">
+          <button onclick="rmvperson()" class = "btn" id="comp">Remove Person?</button>
+           <p id="list"></p>
+          </div>
+        </div>
+    <script>
+      function makeTable(){
+        var list=[];
+        document.getElementById("noemp").value=list.length;
+        document.getElementById("list").innerHTML="";
+    }
+    
+    function addPerson(){ //Fill to empty
+    
+      var newemployee = {
+        "employ": "1",//Name 
+        "age": 1,  //ages
+        "gender": 0,  //Daily rate
+      }
+      newemployee.employ=document.getElementById("employ").value;
+      newemployee.age=document.getElementById("age").value;
+      newemployee.gender=document.getElementById("gender").value;
+    
+      console.log(newemployee.employ);
+      console.log(newemployee.age);
+      console.log(newemployee.gender);
+      list.push(newemployee);
+    
+      console.log(list.length);
+      document.getElementById("noemp").value=list.length;
+    
+      showtable();
+    }
+      function rmvperson(){
+        var enumb, delet;
+    
+        enumb = document.getElementById("remove").value;
+        delet = confirm("Remove Identity No. " + enumb + "?");
+    
+        if(delet){
+          list.splice(enumb-1,1);
+          document.getElementById("noemp").value=list.length;
+          showtable();
+        } 
+      }
+      function showtable(){
+        var eLength, enumber, ttext, theader,tbody,tb,tfooter,i;
+    
+            theader ="<thead>";
+                theader+="<tr>";
+                theader+="<th>No.</th>";
+                theader+='<th style="text-align:left"> Name</th>';
+                theader+="<th>Age </th>";
+                theader+='<th style="text-align:right">Gender</th>';
+                theader+="</tr>";
+                theader+="</thead>";
+                        
+    
+            eLength= list.length;
+    
+          for ( i = 0, ttext = "", tbody = ''; i < eLength; i++){
+            enumber = i + 1;
+    
+                  tbody += "<tr>"
+                    +'<td>'+enumber+' </td>'
+                    +'<td>'+list[i].employ+' </td>'
+                    +'<td style="text-align:right">'+list[i].age+'</td>'
+                    +'<td style="text-align:right">'+list[i].gender+'</td>'
+                    +"</tr>";
+          }     
+          console.log(theader+tbody+tfooter);
+          document.getElementById("list").innerHTML=
+          "<table>"+theader+tbody+"</table>";
+      }
+      var list =[];
+    </script>
+    </body>
+    </html>
